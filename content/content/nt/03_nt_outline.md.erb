@@ -1,0 +1,56 @@
+---
+title: Nano Twitter Project Outline
+---
+#### Approximate Recipe
+
+Each step in this outline has a name which I use to refer to it elsehwere in this course. Notice that you will probably jump around or be working on more than one step at a time. So this is not a precise recipe, more like an outline to help you find your way in the project.
+
+##### nanoTwitter 0.1: Foundation
+
+* **\[DBSCHEMA\]** Design relational database schema (i.e. one for the whole app.) Decide what tables you will have, what the attributes (columns) are for each table, what the primary and foreign keys are, and what the associations are (i.e. one to many, many to one, many to many.)
+* **\[UIDESIGN\]** Design/layoutuser interface of NT. Key screens and forms. Develop it as a paper prototype and/or using Balsamiq.com. Start with a paper sketch for each page. Remember to note where there are links and buttons, and what the various text boxes are. No need to immitate the real twitter. Do whatever you want but make sure the User Interface functionality that is listed in <%= link_to_section :nt, :nt_functionality %> is covered.
+* **\[ROUTES\]** Before coding up the sinatra app, sit down and design all urls that you will have to implement in the code. <%= link_to_section :nt, :nt_functionality %> gives you the outline, but here you need to describe all of them. Do this before you code. Document them in the Readme. For now you can ignore the REST Api routes.
+* **\[nanoTwitter 0.1\]** Use ActiveRecord and Sqlite3 for development (local) db. Build migrations for the User table. Add some fake users. Use the one (or two) of the actual sketches from from \[UIDESIGN\] to implement .html.erb files for that view in the view directory to display the views. Make sure the basic flows work: db:migrate, launch the server, display users, etc.
+
+##### nanoTwitter 0.2: First Minimal Implementation
+
+* **\[MIGRATIONS\]** Write and validate the complete set of migrations for the **\[DBSCHEMA\]** you designed above. You should have all the tables built in the database.
+* **\[AUTHENTICATION\]** Implement "fake" authentication test from the <%= link_to_section :nt, :nt_functionality %>
+* **\[SEEDDATA\]** Implement a large body of seed data with automation. For each table in your database you want to populate it with real looking data. You can use the faker gem to give you real looking data. Generate fake users, tweets, follows, and everything else. Notice that generating fake follows is a little tricky logically because a user cannot follow themselves. Tie your code to Rake db:seed
+* **\[nanoTwitter 0.2\]** Clean up the directory to get rid of any random files. Write a readme.md in the root directory. Create a github repo (one for all team members) and push APP 0.2 up to Github\]
+
+##### nanoTwitter 0.3: Core functionality
+
+* **\[UNITTESTS\]** Write set of unit tests with MiniTest. (RSpec is also ok, but I recommend MiniTest. It will give you fewer headaches.) This is a good opportunity to look at your Sinatra application and try to break it down into several files/classes. Any non-trivial Sinatra based app defines some classes which work independently of the Sinatra framework. Try to figure out how to do that. You should have several unit and integration test.
+* **\[TESTINTERFACE\]** Implement the complete test interface from the <%= link_to_section :nt, :nt_functionality %>. Use TDD to do this.
+* **\[CODESHIP\]** Set up Continuous Delivery using www.codeship.com. Each team should get a single Codeship account (free). Follow their instructions to set up automatic deployment of your code so that each time you push new sources to github, Codeship sees this and automatically runs your test suite to make sure verything still works.
+* **\[nanoTwitter 0.3\]** Clean up the directory to get rid of any random files. Write a readme.md in the root directory containing information that would be useful to another developer trying out your code. Update your repo (one for all team members) with nanoTwitter 0.3 and tag the release.
+
+##### nanoTwitter 0.4: Testing and Deployment
+
+* **\[HEROKU\]** Have Codeship deploy to Heroku. Now when you push to github, Codeship should automatically run all your tests, and if they all pass, then automatically deploy to Heroku. Make sure tests all this is happening.
+* **\[MANUALTEST\]** Once nT is up on heroku, try having all three team members log into it at the same time and do some tweeting.
+* **\[LOADTEST\]** Use loader.io to generate some artificial loads. Configure Loader.io and your app so the load testing can work. And start playing around with different loads. Familiarlize yourself with Loader.io, it's options and what the functionality actually means.
+* **\[MORETESTS\]** With load testing it is typical to discover actual bugs in the code. When you find a bug, try hard to add one or more tests to your test suite that would have exposed the bug ahead of time. For example, if load testing reveals that adding a user with a duplicate name causes an exception, fix the bug, but then also add a new unit test that proves that the bug is fixed.
+
+##### NanoTwitter 0.5: Inital Load Testing
+**Here are important instructions: <%= link_to_topic :nt_load_testing %>**
+
+* **\[INSTRUMENT\]** Instrument your nanoTwitter to begin collecting internal performance and timing data. While there are lots of ways to do this, for now, we will use New Relic, which is easiest available directly through Heroku. Figure out how to enable New Relic within your Heroku Configuration and get to know the options.
+* **\[RUNLOADEXPERIMENT\]** Get more scientific. Instead of randomly trying different things, design some specific experiments and start collecting repeatable data so you can see whether a change improves one thing but might harm something else. Keep up your notes in a text file inside your github repo so it becomes part of your work product.
+* **\[NEWWEB\]** Switch web server from WebBrick; try others, measure.
+* **\[IMPROVESCHEMA\]**Update your schema to put indeces and other enhancements and see the effect on scaling
+* **\[nanoTwitter 0.5\]** Clean up the directory to get rid of any random files. Update your readme.md. Tag the release and update your repo.
+
+##### nanoTwitter 0.6: Advanced Scaling
+
+* **\[REDIS\]** Investigate and figure out how to setup a Redis Caching service. You will need to set it up locally on your computer, for testing, and also figure out how to configure it on Heroku.
+* **\[CACHING\]** Consider where to add caching and do some more experiments to see the affect. You will want to refer also to the way we will test your nanoTwitter with the standard test runs, which are explained in <%= link_to_section :nt, :nt_functionality %>
+* **\[SCALEEXPERIMENT\]** Design and execute scaling experiments and see the differences. Make sure you record the results carefully so you will be able to report on them in your final report!
+
+##### nanoTwitter 0.7: Web Service API and Client
+
+* **\[APIROUTES\]**Go back to the beginning Design external API urls. Implement them as further Sinatra routes. The needed routes are explained in <%= link_to_section :nt, :nt_functionality %>
+* **\[CLIENTLIB\]** Write client libraries for your APIs. This client library could be written in any language, because it's purpose is to support a programmer who wants to use nanoTwitter's functionality as a service. For example, if I wanted to write an iPhone app to access all the nanoTwitter functionality, I would incorporate this clientlib in my code. In that case, this client lib would be implemented in Swift. We would call this a "Swift binding" for the nanoTwitter REST API. For this assignment, write the client library in Ruby. Follow the example as explained early in \[SODRR\].
+* **\[CLIENTLIBTEST\]** Write a complete set of tests for your client library demonstrating that the client library indeed works. Again the example is explained early in \[SODRR\].
+* **\[nanoTwitter 0.7\]** Clean up the directory to get rid of any random files. Update your readme.md. Tag the release and update your repo.
