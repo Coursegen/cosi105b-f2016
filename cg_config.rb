@@ -4,7 +4,7 @@ require 'coursegen'
 COPYRIGHT_STRING = "Copyright (2014-2015) R. Pito Salas, pitosalas@gmail.com"
 
 # bucket for AWS Deployment of the course
-AWS_BUCKET = "cosi105b-f2015"
+AWS_BUCKET = "cosi105b-f2016"
 
 # Course short name
 COURSE_SHORT_NAME = "Cosi 105b"
@@ -14,12 +14,12 @@ COURSE_ABBREV = "cs105"
 
 # Schedule information. Note that Monday is day 0
 LECTURES_SCHEDULE_CONFIG = ScheduleDef.new(
-    first_day: "august-28-2015",
-    weekdays: [:tuesday, :friday],
-    number: 27,
-    skips: ["september-15-2015", "september-29-2015", "november-27-2015"],
-    start_time: "11:00",
-    end_time: "12:20")
+  first_day: "august-26-2016",
+  weekdays: [:tuesday, :friday],
+  number: 27,
+  skips: [],
+  start_time: "12:30",
+  end_time: "13:50")
 
 # Sections in the right hand margin of the page
 SECTION_CONFIG = [
