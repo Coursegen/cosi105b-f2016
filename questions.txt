@@ -22,3 +22,11 @@ Composition vs. Inheritence:
 
 -- Chapter 9 of POODR
 
+
+Exam Question:
+
+When sharding it is necessary that each piece of information have a unique id. In other words, and as an example, to be able to find the profile picture of a certain user we need a uniqueID that we store in the user profile, which can be used to locate the picture. Or, to be able to find a certain tweet (which could be stored on one of many shards) you need a uniqueID that allows you to locate it.
+
+Considering Postgres as your database and Sinatra as your framework, describe how you would compute a unique id so that you can be sure there would be no conflict when two different users simultaneously tweet. After all the logic for creating the tweet record is running concurrently on two different servers. How do you make sure they don't both come up with the same ID?
+
+(see http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagram)
