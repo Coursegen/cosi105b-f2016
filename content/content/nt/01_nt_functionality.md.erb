@@ -24,53 +24,14 @@ title: nano Twitter Functionality
     * Anything else you want to add to make it more impressive
   * Belong to one user
   * Can never be deleted
-* REST Api is provided
-  * Retrieve the firehose of all tweets by all users
-  * Retrieve the firehose for one specific user
 
-#### nT Authentication
-* First just fake authentication
-  * Build in (through seed data and Faker) a series of fake users
-  * Make it easy to rebuild the database with a set collection of users.
-  * Add the following two urls
-    * log in user :x (/login/:x)
-    * log out current user (/logout)
-* Later in the term, as time permits implement more real authentication.
-  * Users can register for an account by supplying an email a name and a password
-  * Users are never deleted
-  * Add the following urls
-    * Display the user registration page (/user/register)
-    * Display user login prompt, and check for correct password (/login)
-    * Logout (/logout)
-
-#### nT User Interface
-* Basic bootstrappy html/css/javascript interface
-* Clean but doesn't have to be fancy
-* Non-logged-in root page (/)
-  * List of the most recent 50 tweets from any user, each with link to tweeter's page
-* Logged-in root page (/)
-  * Maps to /user/1234 when user 1234 is logged in
-* Specific user's page (/user/1234)
-  * If this is logged in users own page
-    * Equiv to logged in root
-    * ability to tweet (i.e. equiv to /)
-  * If this is not logged in users own page, but a user is logged in
-    * Button to follow that user (available only if logged in)
-  * In all cases, also:
-    * Top 50 tweets of users followed by logged in user
-    * User's profile info
-    * Link to list of users followed by this user. Link text is a count.
-    * Link to list of tweets made by this user. Link text is a count.
-    * Link to list of users following this user. Link text is a count.
-
-#### nT Web Services API
-* REST-y API
-  * All paths start with /api/v1
-  * /tweets/23 - return tweet with id
-  * /users/23 - return user information for user 23
-  * /tweets/recent - return the recent n tweets
-  * /users/23/tweets - return the users recent tweets
-  * You need to figure out the other ones. The objective is that someone can write, for example, an iPhone nanoTwitter client that would use this API to implement the functionality.
+#### nT Web Services (REST) API
+* All paths start with /api/v1
+* /tweets/23 - return tweet with id
+* /users/23 - return user information for user 23
+* /tweets/recent - return the recent n tweets
+* /users/23/tweets - return the users recent tweets
+* You need to figure out the other ones. The objective is that someone can write, for example, an iPhone nanoTwitter client that would use this API to implement the functionality.
 
 * Values as JSON, as example:
   * Tweet:
@@ -81,6 +42,37 @@ title: nano Twitter Functionality
   * User: `{"id": 12, "email": xu@nanotwitter.org}`
   * List of tweets: `[<tweet>, <tweet>,...]`
   * Follow list: `["user_id": 22, "user_id": 23, ...]`
+
+
+
+#### nT User Interface
+* Basic bootstrappy html/css/javascript interface
+* Clean but doesn't have to be fancy
+
+##### Routes
+* Non-logged-in root page (/)
+  * List of the most recent 50 tweets from any user, each with link to tweeter's page
+  * Login link
+* Logged-in root page (/)
+  * Maps to /user/1234 when user 1234 is logged in
+* Specific user's page (/user/1234)
+  * If this is logged in users own page
+    * Equiv to logged in root
+    * Ability to tweet (i.e. equiv to /)
+  * If this is not logged in users own page, but a user is logged in
+    * Button to follow that user (available only if logged in)
+  * If no one is logged in
+    * Display login link
+  * In all cases, also:
+    * Top 50 tweets of users followed by logged in user
+    * User's profile info
+    * Link to list of users followed by this user. Link text is a count.
+    * Link to list of tweets made by this user. Link text is a count.
+    * Link to list of users following this user. Link text is a count.
+    * Registration
+      * Display the user registration page (/user/register)
+      * Display user login prompt, and check for correct password (/login)
+      * Logout (/logout)
 
 #### Test Interface
 The Test Interface essentially is a set of URLs which invoke special functionality that allows your nanoTwitter to be tested from a browser, and is the foundation of the scalability testing we will be doing.
