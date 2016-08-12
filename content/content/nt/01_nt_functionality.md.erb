@@ -10,6 +10,7 @@ title: nano Twitter Functionality
 * Users:
   * can register for an account by supplying an email a name and a password
   * are never deleted
+  * are assigned a numeric id (the record id)
 * Logged in users
   * Can follow and unfollow other registered users
   * Can tweet
@@ -43,22 +44,24 @@ title: nano Twitter Functionality
     * Logout (/logout)
 
 #### nT User Interface
-* Very basic bootstrappy html interface
+* Basic bootstrappy html/css/javascript interface
+* Clean but doesn't have to be fancy
 * Non-logged-in root page (/)
-  * List of the most recent 50 tweets from any user, with link to tweeter's page
+  * List of the most recent 50 tweets from any user, each with link to tweeter's page
 * Logged-in root page (/)
-  * Exactly the same as /user/1234 when user 1234 is logged in
-* Specific user's page (/user/name or /user/1234)
+  * Maps to /user/1234 when user 1234 is logged in
+* Specific user's page (/user/1234)
   * If this is logged in users own page
     * Equiv to logged in root
     * ability to tweet (i.e. equiv to /)
-  * If this is not logged in users own page, but user is logged in
+  * If this is not logged in users own page, but a user is logged in
     * Button to follow that user (available only if logged in)
   * In all cases, also:
-    * Top 50 tweets of followed users
-    * User's profile
-    * Link to list of users followed
-    * Link to list of tweets made by this user
+    * Top 50 tweets of users followed by logged in user
+    * User's profile info
+    * Link to list of users followed by this user. Link text is a count.
+    * Link to list of tweets made by this user. Link text is a count.
+    * Link to list of users following this user. Link text is a count.
 
 #### nT Web Services API
 * REST-y API
@@ -75,30 +78,41 @@ title: nano Twitter Functionality
     "text": foobar,
     "created": jan-11-2015
 }`
-  * User: `{"id": name": Pito Salas}`
+  * User: `{"id": 12, "email": xu@nanotwitter.org}`
   * List of tweets: `[<tweet>, <tweet>,...]`
   * Follow list: `["user_id": 22, "user_id": 23, ...]`
 
 #### Test Interface
+The Test Interface essentially is a set of URLs which invoke special functionality that allows your nanoTwitter to be tested from a browser, and is the foundation of the scalability testing we will be doing.
+
+##### Accessing the following URLs invokes the Test Interface:
+
+<%= callout("NB", %( There is one special user called "testuser@nanotwitter.org". We refer to that user as the TestUser.)) %>
+
 * /test/reset/all
   * If needed deletes all users, tweets, follows
-  * if needed creates a new test user called `testuser`
+  * Recreates TestUser
+  * Example: `test/reset/all`
 * /test/reset/testuser
-  * if needed creates a new test user called `testuser`
-  * if needed deletes all tweets that the `testuser` ever created
-  * if needed deletes all follows of the `testuser`
+  * Deletes and recreates TestUser, including all his tweets, follows, and removes him from any other users' follow list.
+  * Example: `/test/reset/testuser`
 * /test/status
   * One page "report":
     * How many users, follows, and tweets are there
-    * Is there a testuser and what is it's user_id
-* /test/seed/n
-  * create `n` (integer) fake Users using faker
-* /test/tweets/n
-  * user `testuser` genereates `n` (integer) new fake tweets
-* /test/follow/n
-  * `n` (integer) randomly selected users follow user `testUser`
-* /test/tweet/userid
-  * User `userid` (can be a number or an identifier) makes a tweet with fake information generated on the fly
+    * What is the TestUser's id
+  * Example: `/test/status`
+* /test/users/users/create?count=u&tweets=c
+  * create `u` (integer) fake Users using faker. Defaults to 1.
+  * each of those users gets `c` (integer) fake tweets. Defaults to zero.
+  * Example: `/test/users/create?count=100&tweets=5`
+* /test/user/u/tweets?count=t
+  * user `u` generates `t`(integer) new fake tweets
+  * if u="testuser" then this refers to the TestUser
+  * Example: `/test/user/testuser/tweets?tweets=100`
+* /test/user/u/follow?count=n
+  * `n` (integer) randomly selected users follow user `u` (integer)
+  * if u="testuser" then this refers to the TestUser
+  * Example: `/test/user/22/follow?count=10`
 
 #### nanoTwitter Scalability Test Protocol
 
@@ -108,19 +122,19 @@ Here's how testing of scaling will be done with loader.io. You need to make sure
 
 Before we can run a standardized test, we want to get each server to a known state we do the following commands directly from a browser.
 
-* /test/reset/all - Delete everything and recreate testuser
-* /test/status - See that the state is what you expect
-* /test/seed/u - create "u" new users
-* /test/tweets/t - have testuser tweet "t" times
-* /test/follow/f - have f users follow testuser
+* `/test/reset/all` - Delete everything and recreate testuser
+* `/test/status` - See that the state is what you expect
+* `/test/users/create?count=u&tweets=10` - create "u" new users, 10 tweets each
+* `/test/user/testuser/tweets?count=t` - have testuser tweet "t" times
+* `/test/user/testuser/follow?count=f` - have f users follow testuser
 
 ##### Pattern
 
 Ok, now the server is in a known state. Next we want to do three distinct load tests
 
-1. / - user tries to simply load up the home page (non-logged in)
-2. /user/testuser - specifically load "testusers" home page
-3. /user/testuser/tweet (POST) - have testuser create one tweet
+1. `/` - user tries to simply load up the home page (non-logged in)
+2. `/user/testuser` - specifically load "testusers" home page
+3. `/user/testuser/tweet` (POST) - have testuser create one tweet
 
 ##### Test runs
 
