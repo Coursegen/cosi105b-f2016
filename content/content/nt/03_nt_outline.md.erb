@@ -1,22 +1,28 @@
 ---
 title: Nano Twitter Project Outline
 ---
-#### Approximate Recipe
+#### What this is
 
-Each step in this outline has a name which I use to refer to it elsehwere in this course. Notice that you will probably jump around or be working on more than one step at a time. So this is not a precise recipe, more like an outline to help you find your way in the project.
+Each step in this outline has a name which I use to refer to it elsewhere in this course. The work is divided up generally into a series of releases, called nanoTwitter 0.1, 0.2 etc.
+
+Notice that you will probably jump around or be working on more than one step at a time. So this is not a precise recipe, more like an outline to help you find your way in the project.
+
+All coding should be occurring in your <%= link_to_intro :portfolio %> directory `/nanotwitter.`
+
+This is all team work. The team members are responsible for dividing up the work, making sure that everyone is included and that everyone has an understanding of what's in the directory.
 
 ##### nanoTwitter 0.1: Foundation
 
-* **\[DBSCHEMA\]** Design relational database schema (i.e. one for the whole app.) Decide what tables you will have, what the attributes (columns) are for each table, what the primary and foreign keys are, and what the associations are (i.e. one to many, many to one, many to many.)
-* **\[UIDESIGN\]** Design/layoutuser interface of NT. Key screens and forms. Develop it as a paper prototype and/or using Balsamiq.com. Start with a paper sketch for each page. Remember to note where there are links and buttons, and what the various text boxes are. No need to immitate the real twitter. Do whatever you want but make sure the User Interface functionality that is listed in <%= link_to_section :nt, :nt_functionality %> is covered.
-* **\[ROUTES\]** Before coding up the sinatra app, sit down and design all urls that you will have to implement in the code. <%= link_to_section :nt, :nt_functionality %> gives you the outline, but here you need to describe all of them. Do this before you code. Document them in the Readme. For now you can ignore the REST Api routes.
-* **\[nanoTwitter 0.1\]** Use ActiveRecord and Sqlite3 for development (local) db. Build migrations for the User table. Add some fake users. Use the one (or two) of the actual sketches from from \[UIDESIGN\] to implement .html.erb files for that view in the view directory to display the views. Make sure the basic flows work: db:migrate, launch the server, display users, etc.
+* **\[DBSCHEMA\]** Design relational database schema (i.e. one for the whole app) after thinking about all the needed functionality. Decide what tables you will have, what the attributes (columns) are for each table, what the primary and foreign keys are, and what the associations are (i.e. one to many, many to one, many to many.)Using the same notation that you used in the previous data model schema, lay out the complete schema design, including table names, attributes, indicating primary and foreign keys, as well as associations (belongs_to, etc.) You may also provide a neat diagram. Save it as a file called schema.pdf in a top level sub directory called doc.
+* **\[UIDESIGN\]** Design and layout user interface of NT. Key screens and forms. Develop it as a paper prototype and/or using Balsamiq.com. Start with a paper sketch for each page. Remember to note where there are links and buttons, and what the various text boxes are. No need to immitate the real twitter. Do whatever you want but make sure the User Interface functionality that is listed in <%= link_to_section :nt, :nt_functionality %> is covered. Save a series of images or similar in a top level sub directory called design.
+* **\[ROUTES\]** Before coding up the sinatra app, sit down and design all urls that you will have to implement in the code. <%= link_to_section :nt, :nt_functionality %> gives you the outline, but here you need to describe all of them. Do this before you code. Save this as a pdf called routes.pdf in your doc sub directory.
+* **\[nanoTwitter 0.2\]** Clean up the directory to get rid of any random files. Write a readme.md in the root directory. Create a github repo (one for all team members) and push APP 0.1 up to Github\].
 
 ##### nanoTwitter 0.2: First Minimal Implementation
-
-* **\[MIGRATIONS\]** Write and validate the complete set of migrations for the **\[DBSCHEMA\]** you designed above. You should have all the tables built in the database.
-* **\[AUTHENTICATION\]** Implement "fake" authentication test from the <%= link_to_section :nt, :nt_functionality %>
-* **\[SEEDDATA\]** Implement a large body of seed data with automation. For each table in your database you want to populate it with real looking data. You can use the faker gem to give you real looking data. Generate fake users, tweets, follows, and everything else. Notice that generating fake follows is a little tricky logically because a user cannot follow themselves. Tie your code to Rake db:seed
+* **\[SINATRA\]**: Create a skeleton Sinatra App as the start of your nanoTwitter implementation in your app directory. Configure it to use sqlite3 in development and postgres in production.
+* **\[MIGRATIONS\]** Write and validate the complete set of migrations for the schema you designed and documented above. You should have all the tables built in the database.
+* **\[AUTHENTICATION\]**: Implement authentication, by implementing the /login and /logout urls.
+* **\[TESTINTERFACE\]**Begin implementing the test interface. Make sure it is modularized and not mixed in with the regular routes that will be used for the user pages. Implement all the `reset/*`, `/status` and `/users/create` test interace paths.
 * **\[nanoTwitter 0.2\]** Clean up the directory to get rid of any random files. Write a readme.md in the root directory. Create a github repo (one for all team members) and push APP 0.2 up to Github\]
 
 ##### nanoTwitter 0.3: Core functionality
