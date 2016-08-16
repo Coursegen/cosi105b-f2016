@@ -1,18 +1,20 @@
 ---
-title: Architecting for scale
-desc: Practical advice on how to detect and deal with scaling issues
-homework: 1) Study SODDR Chapter 4 in depth, submit warmup questions in Latte; 2) Continue working on nanoTwitter 0.2
-cat: nt
+title: Introduction to Scale
+desc: What does scalability mean? How is it different from Performance? What do scalbility problems look like?
+homework: 1) Study SODDR Chapter 4 in depth, submit warmup questions in Latte; 2) Begin work on nanoTwitter 0.2
+cat: scale
 ---
 <%= homework_hdr %>
-* Read \[SODRR\] Chapter 4. This is a hard, conceptual chapter. You will want to come back to it later in the course. <%= deliverable("Find and respond to the warmups in latte") %>
+1. <%= timebadge %> <%= partbadge %> Read \[SODRR\] Chapter 4. This is a hard, conceptual chapter. You will want to come back to it later in the course. <%= deliverable("Find and respond to the warmups in latte") %>
+1. <%= partbadge %> <%= codebadge %> Begin work on nanoTwitter 0.2 (<%= link_to_section :nt, :nt_outline %>). This work is all done together as a team. It makes sense to divide up tasks between the team members. All nanoTwitter work, from here on, should happen in your <%= link_to_intro :portfolio %>, directory `/nanotwitter`. nt 0.2 will be due on xxxx.
 
-#### Homework Discussion
+#### Discussion
+* Review How to do Authentication in Sinatra (see <%= link_to_section :nt, :nt_outline %>)
+* Review the Test Interface (see <%= link_to_section :nt, :nt_outline %>)
 * Review http <-> URI <-> API design <-> Caching
 * Review Database join <-> un-normalized data
 
 <%= include_topic :scaling %>
-<%= include_topic :architecting_for_scale %>
 
 #### Next Class
 * Look at homework: <%= link_to_next_lecture %>

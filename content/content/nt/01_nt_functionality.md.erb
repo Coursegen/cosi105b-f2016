@@ -43,8 +43,6 @@ title: nano Twitter Functionality
   * List of tweets: `[<tweet>, <tweet>,...]`
   * Follow list: `["user_id": 22, "user_id": 23, ...]`
 
-
-
 #### nT User Interface
 * Basic bootstrappy html/css/javascript interface
 * Clean but doesn't have to be fancy
@@ -74,70 +72,10 @@ title: nano Twitter Functionality
       * Display user login prompt, and check for correct password (/login)
       * Logout (/logout)
 
-#### Test Interface
-The Test Interface essentially is a set of URLs which invoke special functionality that allows your nanoTwitter to be tested from a browser, and is the foundation of the scalability testing we will be doing.
+yy
 
-##### Accessing the following URLs invokes the Test Interface:
+<%= include_topic :nt_test_interface %>
 
-<%= callout("NB", %( There is one special user called "testuser@nanotwitter.org". We refer to that user as the TestUser.)) %>
+xx
 
-* /test/reset/all
-  * If needed deletes all users, tweets, follows
-  * Recreates TestUser
-  * Example: `test/reset/all`
-* /test/reset/testuser
-  * Deletes and recreates TestUser, including all his tweets, follows, and removes him from any other users' follow list.
-  * Example: `/test/reset/testuser`
-* /test/status
-  * One page "report":
-    * How many users, follows, and tweets are there
-    * What is the TestUser's id
-  * Example: `/test/status`
-* /test/users/users/create?count=u&tweets=c
-  * create `u` (integer) fake Users using faker. Defaults to 1.
-  * each of those users gets `c` (integer) fake tweets. Defaults to zero.
-  * Example: `/test/users/create?count=100&tweets=5`
-* /test/user/u/tweets?count=t
-  * user `u` generates `t`(integer) new fake tweets
-  * if u="testuser" then this refers to the TestUser
-  * Example: `/test/user/testuser/tweets?tweets=100`
-* /test/user/u/follow?count=n
-  * `n` (integer) randomly selected users follow user `u` (integer)
-  * if u="testuser" then this refers to the TestUser
-  * Example: `/test/user/22/follow?count=10`
-
-#### nanoTwitter Scalability Test Protocol
-
-Here's how testing of scaling will be done with loader.io. You need to make sure that your version of nanoTwitter performs as well as possible in these scenarios!
-
-##### Setup
-
-Before we can run a standardized test, we want to get each server to a known state we do the following commands directly from a browser.
-
-* `/test/reset/all` - Delete everything and recreate testuser
-* `/test/status` - See that the state is what you expect
-* `/test/users/create?count=u&tweets=10` - create "u" new users, 10 tweets each
-* `/test/user/testuser/tweets?count=t` - have testuser tweet "t" times
-* `/test/user/testuser/follow?count=f` - have f users follow testuser
-
-##### Pattern
-
-Ok, now the server is in a known state. Next we want to do three distinct load tests
-
-1. `/` - user tries to simply load up the home page (non-logged in)
-2. `/user/testuser` - specifically load "testusers" home page
-3. `/user/testuser/tweet` (POST) - have testuser create one tweet
-
-##### Test runs
-
-* Test case 1: u = 100, t = 500, f = 30
-* Test case 2: u = 500, t = 500, f = 100
-* Test case 3: u = 3000, t = 2000, f = 1000
-
-##### Loader.io Setup for test
-* Create a test case for each of the cases you want to test
-  * Run 1 minute tests and play with the number of users to see what happens when you try to reach the limits indicated in the test runs
-  * Use the "Maintain Client Load" test for pattern 1 and 2, and "Clients per test" for pattern 3
-  * Enter each of the three urls above for three different test at least
-  * Make sure you /test/reset between each test
-* Collect data for a final report
+<%= include_topic :nt_scalability_testing_protocol %>
