@@ -20,9 +20,9 @@ This is all team work. The team members are responsible for dividing up the work
 
 ##### nanoTwitter 0.2: First Minimal Implementation
 * **\[SINATRA\]**: Create a skeleton Sinatra App as the start of your nanoTwitter implementation in your app directory. Configure it to use sqlite3 in development and postgres in production.
-* **\[MIGRATIONS\]** Write and validate the complete set of migrations for the schema you designed and documented above. You should have all the tables built in the database.
-* **\[AUTHENTICATION\]**: Implement authentication, by implementing the /login and /logout urls.
-* **\[TESTINTERFACE\]**Begin implementing the test interface. Make sure it is modularized and not mixed in with the regular routes that will be used for the user pages. Implement all the `reset/*`, `/status` and `/users/create` test interace paths.
+* **\[MIGRATIONS\]** Write and validate the complete set of migrations for the schema you designed and documented above. You should have all the tables built in the database. You can use ActiveRecord Migrations with Sinatra. Some hints are here: [Using Migrations with Sinatra](http://www.sinatrarb.com/faq.html#ar-migrations)
+* **\[AUTHENTICATION\]**: Implement authentication, by implementing the /login and /logout urls. Use basic authentication and use Rack::Auth::Basic. Check this out for hints: [Sinatra Auth](http://www.sinatrarb.com/faq.html#auth)
+* **\[TESTINTERFACE\]** Begin implementing the test interface. Make sure it is modularized and not mixed in with the regular routes that will be used for the user pages. Implement all the `reset/*`, `/status` and `/users/create` test interace paths.
 * **\[nanoTwitter 0.2\]** Clean up the directory to get rid of any random files. Write a readme.md in the root directory. Create a github repo (one for all team members) and push APP 0.2 up to Github\]
 
 ##### nanoTwitter 0.3: Core functionality
