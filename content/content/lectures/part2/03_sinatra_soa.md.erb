@@ -7,9 +7,13 @@ cat: web
 
 <%= homework_hdr %>
 
-1. <%= partbadge %> <%= timebadge %> **Read:** \[SODRR\] Chapter 2. Make note of points that confused you. It is a bit of an abstract chapter, but it sets the stage for the kinds of architectures we care about. <%= deliverable "Submit warmup questions" %>
+1. <%= pdfbadge %> <%= partbadge %> <%= timebadge %> **Read:** \[SODRR\] Chapter 2. Make note of points that confused you. It is a bit of an abstract chapter, but it sets the stage for the kinds of architectures we care about. Answer the following warmup questions about the chapter:
+  * What is a Service Oriented Architecture? The whole chapter is about that topic and I don't expect you to reproduce the chapter. How do you recognize a SOA? What are some of the advantages? How would you explain it to an experienced web developer who had not taken this course?
+  * What do you know about the HTTP Response? You know all about the URL and the various HTTP request verbs, GET, PUT etc. Turning your attention now to the response: what does an HTTP response return for a typical web server? And when we are talking about a Web service in a service oriented architecture, what does an HTTP response typically include that is different? Can you motivate why it might be different in the two scenarios?
+  * Still Confused? Mention 2 topics or explanations or ideas from the reading that are still confusing. If none of it is confusing, say so. And add the two ideas, explanations or concepts that yove learned that you think are particularly interesting or important. Please make it clear whether it's a confusion or an insight.
+  * <%= deliverable "Submit warmup questions" %>
 1. <%= pdfbadge %> Complete and submit the [DBSCHEMA] part of nanoTwitter 0.1 (see  <%= link_to_section :nt, :nt_outline %>.). Do it individually, not with your team. <%= deliverable "nanoTwitter Schema Design" %>
-1. <%= codebadge %> Complete nt 0.1 as a team. See: <%= link_to_section :nt, :nt_outline %>. <%= team_deliverable %(nT code for [nanoTwitter 0.1] in portfolio) %>
+1. <%= partbadge %> <%= codebadge %> Complete nt 0.1 as a team. See: <%= link_to_section :nt, :nt_outline %>. <%= team_deliverable %(nT code for [nanoTwitter 0.1] in portfolio) %>
 
 #### Discussion
 * Discussion about Chapter 2, what is a service and related questions
@@ -21,7 +25,7 @@ cat: web
 1. Meaning of the URL
 1. ActiveRecord as the bridge between Ruby and the relational database
 1. The relationship between the client and the server
-1. How Unit testing is done with Rspec
+1. How Unit testing is done with Mintest/Spec et al.
 1. The idea of Test Driven Development
 1. HTTP and it's different Verbs like GET, PUT, POST etc.
 
